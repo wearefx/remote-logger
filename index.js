@@ -1,4 +1,3 @@
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
 const fs = require("fs");
@@ -10,11 +9,10 @@ const certDirPath = "./.dev";
 const port = 8082;
 
 app.use(cors());
-app.use(bodyParser({ limit: "50mb" }));
-app.use(express.json());
+app.use(express.json({ limit: "50MB" }));
 
 app.post("/remote-logger", (req, res) => {
-  fs.writeFileSync("./logs.txt", req.body.map(JSON.stringify).join("\n"), {
+  fs.writeFileSync("./logs.txt", req.body.join("\n"), {
     flag: "a"
   });
 
